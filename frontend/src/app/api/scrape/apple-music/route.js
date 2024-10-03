@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import puppeteer from "puppeteer";
 
+export const maxDuration = 5 * 60;
+
 export async function POST(request) {
   try {
     // Parse the request body to get the playlist ID

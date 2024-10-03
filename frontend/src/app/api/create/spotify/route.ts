@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+export const maxDuration = 5 * 60;
+
 // Function to create a playlist on Spotify and add songs
 export async function POST(request: Request) {
   try {

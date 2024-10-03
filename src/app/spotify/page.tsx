@@ -5,7 +5,7 @@ import SpotifyForm from "../components/SpotifyForm";
 import { FaApple } from "react-icons/fa";
 
 const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID || "";
-const redirectUri = "http://localhost:3000/spotify/";
+const redirectUri = "https://playlisttransfers.app/spotify/";
 const authorizationEndpoint = "https://accounts.spotify.com/authorize";
 const scope =
   "user-read-private user-read-email playlist-modify-private playlist-modify-public";

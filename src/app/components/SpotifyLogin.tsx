@@ -1,5 +1,3 @@
-"use client";
-import { useEffect, useState } from "react";
 import { FaSpotify } from "react-icons/fa";
 
 const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID || ""; // Updated to use NEXT_PUBLIC_SPOTIFY_CLIENT_ID
@@ -9,9 +7,6 @@ const scope =
   "user-read-private user-read-email playlist-modify-private playlist-modify-public";
 
 const SpotifyAuthButton = () => {
-  const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
   // Generate random string for code_verifier
   const generateRandomString = (length: number) => {
     const possible =
@@ -50,75 +45,18 @@ const SpotifyAuthButton = () => {
       window.location.href = authUrl.toString(); // Redirect the user to Spotify's authorization page
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      setError("Error initiating Spotify authorization");
+      alert(err);
     }
   };
-
-  // Get the access token from Spotify using the authorization code
-  const getToken = async (code: string) => {
-    const tokenEndpoint = "https://accounts.spotify.com/api/token";
-    const codeVerifier = localStorage.getItem("code_verifier");
-
-    const response = await fetch(tokenEndpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams({
-        client_id: clientId,
-        grant_type: "authorization_code",
-        code: code,
-        redirect_uri: redirectUri,
-        code_verifier: codeVerifier || "", // Ensure this is a string
-      }),
-    });
-
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(`Error fetching token: ${data.error}`);
-    }
-    return data;
-  };
-
-  // On component mount, check for authorization code in URL and handle token exchange
-  useEffect(() => {
-    const args = new URLSearchParams(window.location.search);
-    const code = args.get("code");
-
-    if (code) {
-      // Exchange the authorization code for an access token
-      getToken(code)
-        .then((token) => {
-          setAccessToken(token.access_token);
-          window.localStorage.setItem("access_token", token.access_token);
-
-          // Clear the authorization code from the URL after handling
-          const url = new URL(window.location.href);
-          url.searchParams.delete("code");
-          window.history.replaceState({}, document.title, url.toString());
-        })
-        .catch(() => {
-          setError("Failed to retrieve access token");
-        });
-    }
-  }, []);
 
   return (
     <div className="flex items-center justify-center w-full h-full">
-      {accessToken ? (
-        <div>
-          <p>Access Token: {accessToken}</p>
-        </div>
-      ) : error ? (
-        <p>{`${error}, please try again.`}</p>
-      ) : (
-        <div
-          className="bg-[#DB2763] text-[#292929] font-bold p-4 border-4 border-[#292929] rounded-full hover:cursor-pointer drop-shadow-[5px_5px_0_rgba(41,41,41,1)] "
-          onClick={redirectToSpotifyAuthorize}
-        >
-          <FaSpotify color="#e0e0e0" size={40} />
-        </div>
-      )}
+      <div
+        className="bg-[#DB2763] text-[#292929] font-bold p-4 border-4 border-[#292929] rounded-full hover:cursor-pointer drop-shadow-[5px_5px_0_rgba(41,41,41,1)] "
+        onClick={redirectToSpotifyAuthorize}
+      >
+        <FaSpotify color="#e0e0e0" size={40} />
+      </div>
     </div>
   );
 };

@@ -58,13 +58,16 @@ function SpotifyForm({
           setLoading(true);
 
           // Make a POST request to scrape song data
-          const scrapeResponse = await fetch("/api/scrape/apple-music", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ playlistId }),
-          });
+          const scrapeResponse = await fetch(
+            "http://159.223.119.65:3000/scrape/apple-music",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ playlistId }),
+            }
+          );
 
           const scrapeData = await scrapeResponse.json();
 

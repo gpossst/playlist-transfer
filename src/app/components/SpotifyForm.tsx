@@ -53,6 +53,8 @@ function SpotifyForm({
 
       const playlistId = extractPlaylistId(playlistLink);
 
+      console.log(playlistId);
+
       if (playlistId) {
         try {
           setLoading(true);

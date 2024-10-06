@@ -61,7 +61,7 @@ function SpotifyForm({
 
           // Make a POST request to scrape song data
           const scrapeResponse = await fetch(
-            "http://159.223.119.65:3000/scrape/apple-music", // Ensure this URL is correct
+            "https://api.playlisttransfers.app/scrape/apple-music", // Ensure this URL is correct
             {
               method: "POST",
               headers: {

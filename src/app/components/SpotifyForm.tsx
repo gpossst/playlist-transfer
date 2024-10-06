@@ -77,7 +77,7 @@ function SpotifyForm({
             const songs = scrapeData.pairedData;
 
             const postResponse = await fetch(
-              "https://api.playlisttransfers.app/api/spotify/playlist",
+              "https://api.playlisttransfers.app/create/spotify",
               {
                 method: "POST",
                 headers: {

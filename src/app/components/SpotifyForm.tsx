@@ -76,17 +76,20 @@ function SpotifyForm({
           if (scrapeData.pairedData) {
             const songs = scrapeData.pairedData;
 
-            const postResponse = await fetch("/api/create/spotify", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                accessToken,
-                userId: user.id,
-                songs,
-              }),
-            });
+            const postResponse = await fetch(
+              "https://api.playlisttransfers.app/api/spotify/playlist",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  accessToken,
+                  userId: user.id,
+                  songs,
+                }),
+              }
+            );
 
             const postData = await postResponse.json();
 

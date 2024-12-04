@@ -1,11 +1,10 @@
 "use client";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import SpotifyForm from "../components/SpotifyForm";
-import { FaApple } from "react-icons/fa";
+import { FaApple, FaSpotify } from "react-icons/fa";
 
 const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID || "";
-const redirectUri = "https://playlisttransfers.app/spotify/";
+const redirectUri = process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URI || "";
 const authorizationEndpoint = "https://accounts.spotify.com/authorize";
 const scope =
   "user-read-private user-read-email playlist-modify-private playlist-modify-public";
@@ -158,26 +157,35 @@ const SpotifyAccessPage = () => {
         <div className="w-full h-full pt-4">
           <div className="w-full flex flex-col h-full items-center pb-8">
             <div className="font-semibold text-xl">Accepted Links:</div>
-            <div>
+            <div className="flex gap-5 pt-4">
+              <FaSpotify size={40} />
               <FaApple size={40} />
             </div>
           </div>
           <SpotifyForm user={user} accessToken={accessToken} />
         </div>
       ) : (
-        <div>
+        <div className="flex items-center flex-col justify-center w-full flex-grow gap-4">
           <p>{`Error: ${error}`}</p>
-          <p>
+          <p className="w-[40%]">
             There was an issue receiving your Access Token or User Information
-            from Spotify. Please try again.
+            from Spotify. This is sometimes caused by your cookies. You can
+            learn more about clearing your cookies{" "}
+            <a
+              className="font-bold underline hover:text-[#DB2763]"
+              href="https://support.google.com/chrome/answer/95647?hl=en&co=GENIE.Platform%3DDesktop#zippy=%2Cdelete-cookies-from-a-site"
+            >
+              here
+            </a>
+            . Please try again.
           </p>
+
           <button
-            className="p-4 bg-[#DB2763] hover:cursor-pointer rounded-full"
+            className="p-4 bg-[#DB2763] hover:cursor-pointer text-[#e0e0e0] rounded-full"
             onClick={redirectToSpotifyAuthorize}
           >
             Login with Spotify
           </button>
-          <Link href="/">Home</Link>
         </div>
       )}
     </div>

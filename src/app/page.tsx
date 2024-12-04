@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import SpotifyAuthButton from "./components/SpotifyLogin";
+import AppleAuthButton from "./components/AppleLogin";
 import Masthead from "@/app/assets/masthead.svg";
 
 function Home() {
@@ -11,7 +12,10 @@ function Home() {
         <div className="font-semibold text-xl pt-8">
           Sign in with your preferred streaming service:
         </div>
-        <SpotifyAuthButton />
+        <div className="flex gap-5 pt-4">
+          <SpotifyAuthButton />
+          <AppleAuthButton />
+        </div>
       </div>
     </div>
   );

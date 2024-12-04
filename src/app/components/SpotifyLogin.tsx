@@ -1,7 +1,7 @@
 import { FaSpotify } from "react-icons/fa";
 
 const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID || ""; // Updated to use NEXT_PUBLIC_SPOTIFY_CLIENT_ID
-const redirectUri = "https://playlisttransfers.app/spotify/";
+const redirectUri = process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URI || "";
 const authorizationEndpoint = "https://accounts.spotify.com/authorize";
 const scope =
   "user-read-private user-read-email playlist-modify-private playlist-modify-public";
